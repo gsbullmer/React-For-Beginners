@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { PropType as t } from 'prop-types';
 
 class Order extends Component {
   render() {
@@ -7,5 +8,9 @@ class Order extends Component {
     );
   }
 }
+
+Order.propTypes = {
+
+};
 
 export default Order;
