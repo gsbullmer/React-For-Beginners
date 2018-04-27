@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { PropTypes as t } from 'prop-types';
 import { getFunName } from '../helpers';
 
 class StorePicker extends Component {
@@ -34,5 +35,11 @@ class StorePicker extends Component {
     );
   }
 }
+
+StorePicker.propTypes = {
+  history: t.shape({
+    push: t.func.isRequired,
+  }).isRequired,
+};
 
 export default StorePicker;
