@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { PropTypes as t } from 'prop-types';
 import Header from './Header';
 import Inventory from './Inventory';
 import Order from './Order';
 import Fish from './Fish';
 import sampleFishes from '../sample-fishes';
+import base from '../base';
 
 class App extends Component {
   constructor(props) {
@@ -17,6 +19,18 @@ class App extends Component {
     this.addFish = this.addFish.bind(this);
     this.addToOrder = this.addToOrder.bind(this);
     this.loadSampleFishes = this.loadSampleFishes.bind(this);
+  }
+
+  componentDidMount() {
+    const { params } = this.props.match;
+    this.ref = base.syncState(`${params.storeId}/fishes`, {
+      context: this,
+      state: 'fishes',
+    });
+  }
+
+  componentWillUnmount() {
+    base.removeBinding(this.ref);
   }
 
   addFish(fish) {
@@ -63,5 +77,13 @@ class App extends Component {
     );
   }
 }
+
+App.propTypes = {
+  match: t.shape({
+    params: t.shape({
+      storeId: t.string.isRequired,
+    }),
+  }).isRequired,
+};
 
 export default App;
