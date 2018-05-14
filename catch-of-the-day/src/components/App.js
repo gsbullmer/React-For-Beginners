@@ -11,9 +11,12 @@ class App extends Component {
   constructor(props) {
     super(props);
 
+    const { params } = this.props.match;
+    const localStorageRef = localStorage.getItem(`order-${params.storeId}`);
+
     this.state = {
       fishes: {},
-      order: {},
+      order: JSON.parse(localStorageRef) || {},
     };
 
     this.addFish = this.addFish.bind(this);
@@ -27,6 +30,12 @@ class App extends Component {
       context: this,
       state: 'fishes',
     });
+  }
+
+  componentDidUpdate() {
+    const { params } = this.props.match;
+    const { order } = this.state;
+    localStorage.setItem(`order-${params.storeId}`, JSON.stringify(order));
   }
 
   componentWillUnmount() {
