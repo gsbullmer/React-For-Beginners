@@ -21,7 +21,9 @@ class App extends Component {
 
     this.addFish = this.addFish.bind(this);
     this.updateFish = this.updateFish.bind(this);
+    this.deleteFish = this.deleteFish.bind(this);
     this.addToOrder = this.addToOrder.bind(this);
+    this.removeFromOrder = this.removeFromOrder.bind(this);
     this.loadSampleFishes = this.loadSampleFishes.bind(this);
   }
 
@@ -61,11 +63,29 @@ class App extends Component {
     this.setState({ fishes });
   }
 
+  deleteFish(key) {
+    // 1. take a copy of state
+    const fishes = { ...this.state.fishes };
+    // 2. update the fish
+    fishes[key] = null;
+    // 3. update state
+    this.setState({ fishes });
+  }
+
   addToOrder(key) {
     // 1. take a copy of state
     const order = { ...this.state.order };
     // 2. Either add to the order, or update the number in our order
     order[key] = order[key] + 1 || 1;
+    // 3. Call setState to update our state object
+    this.setState({ order });
+  }
+
+  removeFromOrder(key) {
+    // 1. take a copy of state
+    const order = { ...this.state.order };
+    // 2. update the order
+    delete order[key];
     // 3. Call setState to update our state object
     this.setState({ order });
   }
@@ -91,12 +111,17 @@ class App extends Component {
             ))}
           </ul>
         </div>
-        <Order fishes={fishes} order={order} />
+        <Order
+          fishes={fishes}
+          order={order}
+          removeFromOrder={this.removeFromOrder}
+        />
         <Inventory
           fishes={fishes}
           addFish={this.addFish}
           loadSampleFishes={this.loadSampleFishes}
           updateFish={this.updateFish}
+          deleteFish={this.deleteFish}
         />
       </div>
     );

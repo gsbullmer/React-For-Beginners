@@ -19,7 +19,7 @@ class EditFishForm extends Component {
   }
 
   render() {
-    const { fish } = this.props;
+    const { fish, index, deleteFish } = this.props;
     return (
       <div className="fish-edit">
         <input name="name" type="text" onChange={this.handleChange} value={fish.name} />
@@ -30,6 +30,7 @@ class EditFishForm extends Component {
         </select>
         <textarea name="desc" type="text" onChange={this.handleChange} value={fish.desc} />
         <input name="image" type="text" onChange={this.handleChange} value={fish.image} />
+        <button onClick={() => deleteFish(index)}>Remove Fish</button>
       </div>
     );
   }
@@ -45,6 +46,7 @@ EditFishForm.propTypes = {
   }).isRequired,
   index: t.string.isRequired,
   updateFish: t.func.isRequired,
+  deleteFish: t.func.isRequired,
 };
 
 export default EditFishForm;

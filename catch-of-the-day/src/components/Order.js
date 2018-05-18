@@ -24,6 +24,7 @@ class Order extends Component {
       <li key={key}>
         {count} lbs {fish.name}
         {formatPrice(fish.price * count)}
+        <button onClick={() => this.props.removeFromOrder(key)}>&times;</button>
       </li>
     );
   }
@@ -58,6 +59,7 @@ class Order extends Component {
 Order.propTypes = {
   order: t.shape().isRequired,
   fishes: t.shape().isRequired,
+  removeFromOrder: t.func.isRequired,
 };
 
 export default Order;
