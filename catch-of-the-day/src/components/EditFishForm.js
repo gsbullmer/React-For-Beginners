@@ -12,7 +12,7 @@ class EditFishForm extends Component {
     const { name, value } = e.currentTarget;
     const updatedFish = {
       ...this.props.fish,
-      [name]: value,
+      [name]: (name === 'price') ? parseFloat(value) : value,
     };
 
     this.props.updateFish(this.props.index, updatedFish);
@@ -23,7 +23,7 @@ class EditFishForm extends Component {
     return (
       <div className="fish-edit">
         <input name="name" type="text" onChange={this.handleChange} value={fish.name} />
-        <input name="price" type="text" onChange={this.handleChange} value={fish.price} />
+        <input name="price" type="number" onChange={this.handleChange} value={fish.price} />
         <select name="status" type="text" onChange={this.handleChange} value={fish.status} >
           <option value="available">Fresh!</option>
           <option value="unavailable">Sold Out!</option>
@@ -39,7 +39,7 @@ class EditFishForm extends Component {
 EditFishForm.propTypes = {
   fish: t.shape({
     name: t.string,
-    price: t.string,
+    price: t.number,
     status: t.string,
     desc: t.string,
     image: t.string,
