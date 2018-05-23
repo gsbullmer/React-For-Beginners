@@ -34,12 +34,12 @@ class Inventory extends Component {
     // 2. Claim it if there is no owner
     if (!store.owner) {
       // save it as our own
-      await base.post(`${this.props.storeId}/owner`, { data: authData.user.email });
+      await base.post(`${this.props.storeId}/owner`, { data: authData.user.uid });
     }
     // 3. Set the state of the inventory component to reflect the current user
     this.setState({
-      uid: authData.user.email,
-      owner: store.owner || authData.user.email,
+      uid: authData.user.uid,
+      owner: store.owner || authData.user.uid,
     });
   }
 
